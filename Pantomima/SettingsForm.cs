@@ -5,6 +5,7 @@ namespace Pantomima
 {
     public partial class SettingsForm : Form
     {
+        // Loads the Settings model to the Form.
         public SettingsManager settingsManager;
 
         public SettingsForm(SettingsManager settings)

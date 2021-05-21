@@ -13,7 +13,7 @@ namespace Pantomima
 {
     public partial class PantomimaForm : Form
     {
-        #region Simeiwseis
+        #region Notes to ADD
         //Katw apo to next player mporw na balw SETTINGS
         //Settings:
         //Hxoi, Timer(poso?), Difficulty mode, poses tainies na sou dinei (twra einai 3), xrwmata
@@ -22,10 +22,14 @@ namespace Pantomima
         //Na psaksw na to katebazw apo to google drive = AMAN MALAKA DIABASMA
         #endregion
 
+        // This is the main Form of the game. 
+
+        // Initializes settings and timer
         public static SettingsManager settingsManager = SettingsManager.Load();
         public TitleManager titleManager = new TitleManager(settingsManager);
 
-        static int timeDefine = settingsManager.seconds; // here i define seconds.
+        //here i define seconds for the timer.
+        static int timeDefine = settingsManager.seconds;
         static int timeLeft = timeDefine;
 
         SettingsForm settings = new SettingsForm(settingsManager);
@@ -34,11 +38,14 @@ namespace Pantomima
         {
             InitializeComponent();
 
-            //Makes the previous button disabled, since there are no previous movies.
+            // Makes the 'Previous' button disabled, since there are no previous movies.
             btnPrevious.Enabled = false;
+
+            // Shows the timeLeft Total to the corresponding Label.
             lblTimer.Text = timeLeft.ToString();
             lblTimer.Font = new Font(lblTimer.Font.FontFamily, 11);
-            //Calls GetNextPlayer to initiate the first player
+
+            // Calls GetNextPlayer to initiate the first player
             lblMovie.Text = titleManager.GetNextPlayer();
         }
 
@@ -58,16 +65,22 @@ namespace Pantomima
 
         private void btnNextPlayer_Click(object sender, EventArgs e)
         {
+            // Enable only the 'Next' button, since it will only show the first movie of the choices. Disable 'Previous' and hide 'Pause'
             btnNext.Enabled = true;
             btnPrevious.Enabled = false;
             btnPause.Visible = false;
+            // Show the next movie choices. 
             lblMovie.Text = titleManager.GetNextPlayer();
+
+            // Reset timer to the one chosen by the user in settings
             timeLeft = timeDefine;
             tmrCountdown.Stop();
+
+            // Show time.
             lblTimer.Text = timeLeft.ToString();
 
             //Create as many instances as needed for the Downloader (netInfo)
-            NetInfo netInfo = new NetInfo();
+            //NetInfo netInfo = new NetInfo();
 
             //You need to check if paths exist.
             //you need to see if the selected movies exist in wikipedia
@@ -87,7 +100,7 @@ namespace Pantomima
              * To koumpi tha perimenei i to netinfo?
              */
 
-            picBox.ImageLocation = ((HttpDownloader)sender).FullFileName;
+            //picBox.ImageLocation = ((HttpDownloader)sender).FullFileName;
         }
 
         //Choose movie. Start countdown. Disable buttons previous and next. Enable stop button.
@@ -104,6 +117,11 @@ namespace Pantomima
                 btnPause.Visible = true;
             }
         }
+
+        //*** TODO: When user hits Pause, make the timer label red and small.
+        //*** When user tries to 'Save' Settings it will work only if a movie isnt on a countdown, OR it must work only after the timer finishes.
+        //*** When 'Pause' is pressed it should be replaced with 'Resume'. Not 'Choose'.
+        //*** For some reason the timer drops by one and then stops after you hit 'Choose' (start or resume)
 
         //Set countdown. If it gets to 0 stop it.
         private void tmrCoudntdown_Tick_1(object sender, EventArgs e)
@@ -148,7 +166,8 @@ namespace Pantomima
             settings.ShowDialog(this);
         }
 
-        //refresh everything dependent on settings. Example timer. 
+        //*** ATTENTION 
+        // Refresh everything dependent on settings. Example timer. 
         private void Settings_FormClosed(object sender, FormClosedEventArgs e)
         {
             //*** need to make more settings
