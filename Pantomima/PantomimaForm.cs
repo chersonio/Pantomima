@@ -118,7 +118,7 @@ namespace Pantomima
             }
         }
 
-        //*** TODO: When user hits Pause, make the timer label red and small.
+        // TODO: When user hits Pause, make the timer label red and small.
         //*** When user tries to 'Save' Settings it will work only if a movie isnt on a countdown, OR it must work only after the timer finishes.
         //*** When 'Pause' is pressed it should be replaced with 'Resume'. Not 'Choose'.
         //*** For some reason the timer drops by one and then stops after you hit 'Choose' (start or resume)
