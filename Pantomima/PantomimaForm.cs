@@ -14,10 +14,7 @@ namespace Pantomima
     public partial class PantomimaForm : Form
     {
         #region Notes to ADD
-        //Katw apo to next player mporw na balw SETTINGS
-        //Settings:
-        //Hxoi, Timer(poso?), Difficulty mode, poses tainies na sou dinei (twra einai 3), xrwmata
-        //Poses tainies exoun meinei (sto buffer) (isws na tis apothikevei se onoma xristi gia na thimatai poies exoun eipwthei gia na min ksanapesoun)
+
         //Na prosthetei tainies apo arxeio i na xrisimopoiei teleiws diaforetiko arxeio.
         //Na psaksw na to katebazw apo to google drive = AMAN MALAKA DIABASMA
         #endregion
@@ -27,17 +24,16 @@ namespace Pantomima
         // Initializes settings and timer
         public static SettingsManager settingsManager = SettingsManager.Load();
         public TitleManager titleManager = new TitleManager(settingsManager);
+        SettingsForm settings = new SettingsForm(settingsManager);
 
         //here i define seconds for the timer.
         static int timeDefine = settingsManager.seconds;
         static int timeLeft = timeDefine;
 
-        SettingsForm settings = new SettingsForm(settingsManager);
-
         public PantomimaForm()
         {
+            settingsManager.colorTheme.;
             InitializeComponent();
-
             // Makes the 'Previous' button disabled, since there are no previous movies.
             btnPrevious.Enabled = false;
 
@@ -78,7 +74,7 @@ namespace Pantomima
 
             // Show time.
             lblTimer.Text = timeLeft.ToString();
-
+            lblTimer.ForeColor = Color.FromArgb(255, 255, 246, 229); // back to previous color. TAKE THAT FROM SETTINGS AND MAKE COLOR THEMES.
             //Create as many instances as needed for the Downloader (netInfo)
             //NetInfo netInfo = new NetInfo();
 
@@ -128,6 +124,7 @@ namespace Pantomima
         {
             //** Na balw na min fainetai an de xrisimopoieitai to timer. Bebaia isws na min boithaei ton paixti.
             //** opote mporw na to exw mikro kai na megalwnei kata to Choose
+
             if (timeLeft > 0)
             {
                 timeLeft--;
@@ -138,7 +135,7 @@ namespace Pantomima
             {
                 lblTimer.ForeColor = Color.FromArgb(255, 49, 69);
             }
-            else
+            else if (timeLeft == 0)
             {
                 tmrCountdown.Stop();
                 tmrCountdown.Enabled = false;
@@ -171,11 +168,20 @@ namespace Pantomima
         private void Settings_FormClosed(object sender, FormClosedEventArgs e)
         {
             //*** need to make more settings
-            settingsManager = ((SettingsForm)sender).settingsManager; 
-            lblTimer.Text = settingsManager.seconds.ToString();
+            settingsManager = ((SettingsForm)sender).settingsManager;
+            timeDefine = settingsManager.seconds;
+            timeLeft = timeDefine < timeLeft ? timeDefine : timeLeft ;
+            lblTimer.Text = timeLeft.ToString();
+
+            // to timeDefine krataei to settings.seconds.
+            // otan hmaste sto screen poy trexei o xronos,
+            // o xristis mporei kai na pathsei settings.
+            // uparxoun 3 katastaseis:
+            // running (more seconds, less seconds)
+            // stopped
         }
 
-         private void linkTutorial_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkTutorial_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             //pnlTutorial.Visible = true;
         }

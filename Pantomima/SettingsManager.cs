@@ -19,11 +19,16 @@ namespace Pantomima
         public int seconds { get; set; }
         public string difficulty { get; set; } = "Easy";
         public string extraMovieFilePath { get; set; } = null;
-        public string MovieFilePath { get; set; } 
+        public string MovieFilePath { get; set; }
         public int numberOfMovieChoices { get; set; }
-        public string themeColors { get; set; } = null;
         public int timesHitChoose { get; set; } = 0;
+        public ColorTheme colorTheme;
         #endregion
+
+        public SettingsManager() 
+        {
+            ColorTheme colorTheme = new ColorTheme();
+        }
 
         /// <summary>
         /// Loads the Settings.json file in the current directory.

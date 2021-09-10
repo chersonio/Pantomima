@@ -28,7 +28,7 @@ namespace Pantomima
         private void btnSave_Click(object sender, EventArgs e)
         {
             settingsManager.difficulty = boxDifficulty.SelectedItem?.ToString();
-            settingsManager.seconds = boxTimers.SelectedItem != null ? Convert.ToInt32(boxTimers.SelectedItem.ToString()) : settingsManager.seconds;
+            settingsManager.seconds = boxTimers.SelectedItem != null ? Convert.ToInt32(boxTimers.SelectedItem) : settingsManager.seconds;
             settingsManager.sounds = boxSounds.Checked;
             settingsManager.Save();
             Close();

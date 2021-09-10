@@ -136,6 +136,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorTheme.cs" />
     <Compile Include="NetInfo.cs" />
     <Compile Include="PantomimaForm.cs">
       <SubType>Form</SubType>
